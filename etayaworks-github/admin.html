@@ -8,367 +8,138 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --gold:    #E8A020;
-      --gold-dk: #c4841a;
-      --dark:    #0d0d0d;
-      --surface: #161616;
-      --card:    #1e1e1e;
-      --border:  #2a2a2a;
-      --muted:   #6b7280;
-      --text:    #e5e7eb;
-      --danger:  #ef4444;
-      --success: #22c55e;
-      --sidebar: 240px;
+      --gold: #E8A020; --gold-dk: #c4841a;
+      --dark: #0d0d0d; --surface: #161616; --card: #1e1e1e;
+      --border: #2a2a2a; --muted: #6b7280; --text: #e5e7eb;
+      --danger: #ef4444; --success: #22c55e; --sidebar: 240px;
     }
-
     html { font-size: 15px; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--dark);
-      color: var(--text);
-      display: flex;
-      min-height: 100vh;
-    }
+    body { font-family: 'Inter', sans-serif; background: var(--dark); color: var(--text); display: flex; min-height: 100vh; }
 
-    /* ── SIDEBAR ── */
-    .sidebar {
-      width: var(--sidebar);
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      top: 0; left: 0; bottom: 0;
-      z-index: 100;
-      overflow-y: auto;
-    }
-
-    .sidebar-brand {
-      padding: 1.5rem 1.25rem 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .sidebar-brand .logo {
-      display: flex; align-items: center; gap: 0.5rem;
-      text-decoration: none;
-    }
-    .logo-mark {
-      width: 32px; height: 32px;
-      background: var(--gold);
-      color: #000;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.25rem;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 4px;
-      flex-shrink: 0;
-    }
-    .logo-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-      color: var(--text);
-    }
-
-    .sidebar-label {
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 1.25rem 1.25rem 0.4rem;
-    }
-
-    .nav-item {
-      display: flex; align-items: center; gap: 0.65rem;
-      padding: 0.65rem 1.25rem;
-      cursor: pointer;
-      color: var(--muted);
-      font-size: 0.875rem;
-      font-weight: 500;
-      border-left: 3px solid transparent;
-      transition: all 0.18s;
-      user-select: none;
-    }
+    /* SIDEBAR */
+    .sidebar { width: var(--sidebar); background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; overflow-y: auto; }
+    .sidebar-brand { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid var(--border); }
+    .sidebar-brand .logo { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .logo-mark { width: 32px; height: 32px; background: var(--gold); color: #000; font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; display: flex; align-items: center; justify-content: center; border-radius: 4px; flex-shrink: 0; overflow: hidden; }
+    .logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.08em; color: var(--text); }
+    .sidebar-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 1.25rem 1.25rem 0.4rem; }
+    .nav-item { display: flex; align-items: center; gap: 0.65rem; padding: 0.65rem 1.25rem; cursor: pointer; color: var(--muted); font-size: 0.875rem; font-weight: 500; border-left: 3px solid transparent; transition: all 0.18s; user-select: none; }
     .nav-item:hover { color: var(--text); background: rgba(255,255,255,0.04); }
     .nav-item.active { color: var(--gold); border-left-color: var(--gold); background: rgba(232,160,32,0.08); }
     .nav-item svg { flex-shrink: 0; }
-
-    .sidebar-footer {
-      margin-top: auto;
-      padding: 1rem 1.25rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
+    .sidebar-footer { margin-top: auto; padding: 1rem 1.25rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--muted); }
     .sidebar-footer a { color: var(--gold); text-decoration: none; }
 
-    /* ── MAIN ── */
-    .main {
-      margin-left: var(--sidebar);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    .topbar {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      position: sticky; top: 0; z-index: 50;
-    }
+    /* MAIN */
+    .main { margin-left: var(--sidebar); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
     .topbar h1 { font-size: 1rem; font-weight: 600; }
     .topbar-actions { display: flex; gap: 0.75rem; align-items: center; }
-
-    .view-site-btn {
-      display: flex; align-items: center; gap: 0.4rem;
-      padding: 0.45rem 1rem;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 6px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      text-decoration: none;
-      transition: border-color 0.18s;
-    }
+    .view-site-btn { display: flex; align-items: center; gap: 0.4rem; padding: 0.45rem 1rem; background: transparent; border: 1px solid var(--border); color: var(--text); border-radius: 6px; font-size: 0.8rem; cursor: pointer; text-decoration: none; transition: border-color 0.18s; }
     .view-site-btn:hover { border-color: var(--gold); color: var(--gold); }
-
-    .save-all-btn {
-      padding: 0.5rem 1.25rem;
-      background: var(--gold);
-      color: #000;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.18s;
-    }
+    .save-all-btn { padding: 0.5rem 1.25rem; background: var(--gold); color: #000; border: none; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.18s; }
     .save-all-btn:hover { background: var(--gold-dk); }
-
-    /* ── CONTENT ── */
-    .content {
-      padding: 2rem;
-      flex: 1;
-    }
-
+    .content { padding: 2rem; flex: 1; }
     .panel { display: none; }
     .panel.active { display: block; }
-
-    .panel-header {
-      margin-bottom: 1.75rem;
-    }
+    .panel-header { margin-bottom: 1.75rem; }
     .panel-header h2 { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.35rem; }
     .panel-header p { color: var(--muted); font-size: 0.875rem; }
 
-    /* ── CARDS ── */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin-bottom: 1.25rem;
-    }
-    .card-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--gold);
-      margin-bottom: 1.25rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
+    /* CARDS */
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.25rem; }
+    .card-title { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gold); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
 
-    /* ── FORM ELEMENTS ── */
+    /* FORM */
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .form-grid.three { grid-template-columns: 1fr 1fr 1fr; }
     .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
     .form-group.full { grid-column: 1 / -1; }
-
-    label {
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="url"],
-    input[type="password"],
-    textarea,
-    select {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 0.6rem 0.8rem;
-      border-radius: 6px;
-      font-size: 0.875rem;
-      font-family: inherit;
-      transition: border-color 0.18s;
-      outline: none;
+    label { font-size: 0.78rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    input[type="text"], input[type="email"], input[type="tel"], input[type="url"], input[type="password"], textarea, select {
+      width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text);
+      padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.875rem; font-family: inherit; transition: border-color 0.18s; outline: none;
     }
     input:focus, textarea:focus, select:focus { border-color: var(--gold); }
     textarea { resize: vertical; min-height: 80px; }
 
-    /* ── TEAM CARDS ── */
+    /* IMAGE UPLOAD WIDGET */
+    .img-upload-widget { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .img-preview-wrap { position: relative; width: 100%; background: var(--surface); display: flex; align-items: center; justify-content: center; }
+    .img-preview-wrap img { width: 100%; object-fit: cover; display: block; }
+    .img-preview-wrap .no-img { padding: 2rem; color: var(--muted); font-size: 0.8rem; text-align: center; }
+    .img-upload-controls { padding: 0.75rem; background: var(--surface); border-top: 1px solid var(--border); display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .upload-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.85rem; background: var(--gold); color: #000; border: none; border-radius: 5px; font-size: 0.78rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    .upload-btn:hover { background: var(--gold-dk); }
+    .upload-btn.secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .upload-btn.secondary:hover { border-color: var(--gold); color: var(--gold); }
+    .img-upload-controls input[type="url"] { flex: 1; min-width: 120px; font-size: 0.78rem; padding: 0.4rem 0.6rem; }
+    .img-upload-controls input[type="file"] { display: none; }
+    .img-size-note { font-size: 0.7rem; color: var(--muted); width: 100%; }
+
+    /* LOGO UPLOAD */
+    .logo-upload-area { display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: wrap; }
+    .logo-img-preview { width: 80px; height: 80px; border-radius: 8px; overflow: hidden; background: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue',sans-serif; font-size: 2rem; color: #000; flex-shrink: 0; border: 2px solid var(--border); }
+    .logo-img-preview img { width: 100%; height: 100%; object-fit: contain; }
+    .logo-upload-right { flex: 1; min-width: 200px; }
+
+    /* TEAM CARDS */
     .team-editor { display: grid; gap: 1rem; }
-    .team-member-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.25rem;
-      position: relative;
-    }
-    .team-member-card .member-header {
-      display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
-    }
-    .member-avatar {
-      width: 56px; height: 56px; border-radius: 50%;
-      object-fit: cover; border: 2px solid var(--border);
-      flex-shrink: 0;
-      background: var(--card);
-    }
+    .team-member-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; position: relative; }
+    .team-member-card .member-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .member-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); flex-shrink: 0; background: var(--card); }
     .member-name-role { flex: 1; }
     .member-name-role strong { display: block; font-size: 0.95rem; margin-bottom: 0.15rem; }
     .member-name-role span { font-size: 0.8rem; color: var(--muted); }
-
-    .delete-btn {
-      position: absolute; top: 1rem; right: 1rem;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--danger);
-      width: 28px; height: 28px;
-      border-radius: 5px;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
-      transition: background 0.15s;
-    }
+    .delete-btn { position: absolute; top: 1rem; right: 1rem; background: transparent; border: 1px solid var(--border); color: var(--danger); width: 28px; height: 28px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: background 0.15s; }
     .delete-btn:hover { background: rgba(239,68,68,0.1); }
-
-    .add-btn {
-      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-      padding: 0.75rem;
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: all 0.18s;
-      background: transparent;
-      width: 100%;
-    }
+    .add-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem; border: 1px dashed var(--border); border-radius: 8px; color: var(--muted); cursor: pointer; font-size: 0.875rem; font-weight: 500; transition: all 0.18s; background: transparent; width: 100%; }
     .add-btn:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* ── STATS EDITOR ── */
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem;
-    }
+    /* PORTFOLIO CARDS */
+    .portfolio-editor { display: grid; gap: 1rem; }
+    .portfolio-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; position: relative; }
+    .portfolio-card-img { width: 100%; height: 160px; object-fit: cover; display: block; background: var(--card); }
+    .portfolio-card-body { padding: 1rem; }
+    .portfolio-card-body .form-grid { gap: 0.75rem; }
 
-    /* ── LOGO PREVIEW ── */
-    .logo-preview {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .logo-preview-mark {
-      width: 48px; height: 48px;
-      background: var(--gold);
-      color: #000;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.75rem;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 6px;
-    }
-    .logo-preview-text {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.1em;
-    }
+    /* STATS */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+
+    /* LOGO PREVIEW */
+    .logo-preview { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }
+    .logo-preview-mark { width: 48px; height: 48px; background: var(--gold); color: #000; font-family: 'Bebas Neue', sans-serif; font-size: 1.75rem; display: flex; align-items: center; justify-content: center; border-radius: 6px; overflow: hidden; }
+    .logo-preview-mark img { width: 100%; height: 100%; object-fit: contain; }
+    .logo-preview-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; }
     .preview-label { font-size: 0.7rem; color: var(--muted); margin-top: 0.5rem; }
 
-    /* ── TOAST ── */
-    .toast {
-      position: fixed; bottom: 2rem; right: 2rem;
-      background: var(--success);
-      color: #000;
-      padding: 0.75rem 1.25rem;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.875rem;
-      display: flex; align-items: center; gap: 0.5rem;
-      opacity: 0; transform: translateY(10px);
-      transition: all 0.3s;
-      pointer-events: none;
-      z-index: 9999;
-    }
+    /* TOAST */
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--success); color: #000; padding: 0.75rem 1.25rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; z-index: 9999; }
     .toast.show { opacity: 1; transform: translateY(0); }
 
-    /* ── LOGIN ── */
-    .login-screen {
-      position: fixed; inset: 0;
-      background: var(--dark);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 9999;
-    }
-    .login-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 2.5rem;
-      width: 360px;
-    }
-    .login-box .brand {
-      display: flex; align-items: center; gap: 0.75rem;
-      margin-bottom: 2rem;
-    }
+    /* LOGIN */
+    .login-screen { position: fixed; inset: 0; background: var(--dark); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+    .login-box { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 2.5rem; width: 360px; }
+    .login-box .brand { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem; }
     .login-box h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.35rem; }
     .login-box p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
     .login-error { color: var(--danger); font-size: 0.82rem; margin-top: 0.5rem; display: none; }
-    .login-btn {
-      width: 100%;
-      padding: 0.7rem;
-      background: var(--gold);
-      color: #000;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: background 0.18s;
-    }
+    .login-btn { width: 100%; padding: 0.7rem; background: var(--gold); color: #000; border: none; border-radius: 6px; font-size: 0.9rem; font-weight: 700; cursor: pointer; margin-top: 1rem; transition: background 0.18s; }
     .login-btn:hover { background: var(--gold-dk); }
 
-    /* ── COLOUR SWATCH ── */
+    /* SWATCHES */
     .swatch-row { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin-top: 0.5rem; }
-    .swatch {
-      width: 36px; height: 36px; border-radius: 50%;
-      cursor: pointer; border: 3px solid transparent;
-      transition: border-color 0.15s;
-    }
+    .swatch { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: border-color 0.15s; }
     .swatch.selected { border-color: white; }
-
-    /* ── DIVIDER ── */
     hr { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+
+    /* TABS inside panels */
+    .tab-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tab-btn { padding: 0.4rem 0.9rem; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 0.8rem; cursor: pointer; transition: all 0.15s; }
+    .tab-btn.active { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 600; }
 
     @media (max-width: 900px) {
       .form-grid { grid-template-columns: 1fr; }
@@ -379,18 +150,18 @@
 </head>
 <body>
 
-<!-- ── LOGIN ── -->
+<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
     <div class="brand">
-      <div class="logo-mark">E</div>
+      <div class="logo-mark" id="login-logo-mark" style="width:36px;height:36px;">E</div>
       <span style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:0.08em;">TAYAWORKS</span>
     </div>
     <h2>Admin Panel</h2>
     <p>Sign in to manage your website content.</p>
     <div class="form-group">
       <label>Email</label>
-      <input type="email" id="loginEmail" value="etayaeugene@gmail.com" placeholder="etayaeugene@gmail.com"/>
+      <input type="email" id="loginEmail" value="etayaeugene@gmail.com"/>
     </div>
     <div class="form-group" style="margin-top:0.75rem;">
       <label>Password</label>
@@ -398,11 +169,11 @@
     </div>
     <div class="login-error" id="loginError">Incorrect credentials. Try again.</div>
     <button class="login-btn" id="loginBtn">Sign In →</button>
-    <p style="margin-top:1rem;font-size:0.75rem;color:var(--muted);">Default password: <strong style="color:var(--text)">etaya2024</strong> — change it in Settings.</p>
+    <p style="margin-top:1rem;font-size:0.75rem;color:var(--muted);">Default password: <strong style="color:var(--text)">etaya2024</strong></p>
   </div>
 </div>
 
-<!-- ── SIDEBAR ── -->
+<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-brand">
     <a href="#" class="logo">
@@ -410,7 +181,6 @@
       <span class="logo-text" id="sb-logo-text">TAYAWORKS</span>
     </a>
   </div>
-
   <span class="sidebar-label">Content</span>
   <div class="nav-item active" data-panel="branding">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
@@ -428,6 +198,10 @@
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
     Team Members
   </div>
+  <div class="nav-item" data-panel="portfolio">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    Portfolio Projects
+  </div>
   <div class="nav-item" data-panel="about">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     About Section
@@ -436,20 +210,18 @@
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.95a16 16 0 0 0 6.03 6.03l.95-.95a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
     Contact Info
   </div>
-
   <span class="sidebar-label">System</span>
   <div class="nav-item" data-panel="settings">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     Settings
   </div>
-
   <div class="sidebar-footer">
-    <p>Etayaworks Admin v1.0</p>
+    <p>Etayaworks Admin v2.0</p>
     <p><a href="index.html" target="_blank">← View Live Site</a></p>
   </div>
 </aside>
 
-<!-- ── MAIN ── -->
+<!-- MAIN -->
 <div class="main">
   <div class="topbar">
     <h1 id="topbar-title">Branding & Logo</h1>
@@ -464,181 +236,146 @@
 
   <div class="content">
 
-    <!-- ── BRANDING ── -->
+    <!-- BRANDING -->
     <div class="panel active" id="panel-branding">
       <div class="panel-header">
         <h2>Branding & Logo</h2>
-        <p>Customise your company name, logo letter, tagline, and accent colour.</p>
+        <p>Upload a logo image or use a text badge. Customise name, tagline, and accent colour.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🖼️ Logo Image</div>
+        <div class="logo-upload-area">
+          <div class="logo-img-preview" id="logoImgPreview">
+            <span id="logoImgFallback">E</span>
+          </div>
+          <div class="logo-upload-right">
+            <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.75rem;">Upload your own logo image (PNG/SVG with transparent background works best) or use the text badge below.</p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+              <label class="upload-btn" for="logoFileInput">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Upload Logo Image
+              </label>
+              <input type="file" id="logoFileInput" accept="image/*"/>
+              <button class="upload-btn secondary" id="clearLogoImg">Remove Image</button>
+            </div>
+            <p class="img-size-note" style="margin-top:0.5rem;">Recommended: PNG/SVG, at least 200×200px, transparent background.</p>
+          </div>
+        </div>
       </div>
 
       <div class="card">
         <div class="card-title">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-          Logo Settings
+          Text Badge & Name
         </div>
         <div class="form-grid">
           <div class="form-group">
-            <label>Logo Letter (shown in square badge)</label>
+            <label>Logo Letter (shown when no image is set)</label>
             <input type="text" id="b-logoMark" maxlength="2" placeholder="E"/>
           </div>
           <div class="form-group">
-            <label>Company Name (after badge)</label>
+            <label>Company Name (next to badge)</label>
             <input type="text" id="b-logoText" placeholder="TAYAWORKS"/>
           </div>
           <div class="form-group full">
-            <label>Tagline (hero eyebrow text)</label>
+            <label>Tagline (hero eyebrow / subheader)</label>
             <input type="text" id="b-tagline" placeholder="Est. Nairobi · Kenya"/>
           </div>
         </div>
-
         <div class="logo-preview">
           <div>
             <div style="display:flex;align-items:center;gap:0.75rem;">
               <div class="logo-preview-mark" id="prev-mark">E</div>
               <span class="logo-preview-text" id="prev-text">TAYAWORKS</span>
             </div>
-            <p class="preview-label">Live preview</p>
+            <p class="preview-label">Live logo preview</p>
           </div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2 2"/></svg>
-          Brand Colours
-        </div>
+        <div class="card-title">🎨 Brand Colour</div>
         <div class="form-group">
-          <label>Accent / Gold Colour</label>
+          <label>Accent Colour (buttons, highlights, badge background)</label>
           <div style="display:flex;gap:0.75rem;align-items:center;margin-top:0.35rem;">
             <input type="color" id="b-accentColor" value="#E8A020" style="width:48px;height:36px;border-radius:6px;border:1px solid var(--border);background:none;cursor:pointer;padding:2px;"/>
             <input type="text" id="b-accentHex" placeholder="#E8A020" style="max-width:120px;"/>
-            <span style="font-size:0.8rem;color:var(--muted);">Used on buttons, highlights, and logo badge</span>
           </div>
           <div class="swatch-row">
-            <div class="swatch selected" style="background:#E8A020;" data-color="#E8A020" title="Gold"></div>
-            <div class="swatch" style="background:#3b82f6;" data-color="#3b82f6" title="Blue"></div>
-            <div class="swatch" style="background:#10b981;" data-color="#10b981" title="Emerald"></div>
-            <div class="swatch" style="background:#f43f5e;" data-color="#f43f5e" title="Rose"></div>
-            <div class="swatch" style="background:#8b5cf6;" data-color="#8b5cf6" title="Violet"></div>
-            <div class="swatch" style="background:#f97316;" data-color="#f97316" title="Orange"></div>
+            <div class="swatch selected" style="background:#E8A020;" data-color="#E8A020"></div>
+            <div class="swatch" style="background:#3b82f6;" data-color="#3b82f6"></div>
+            <div class="swatch" style="background:#10b981;" data-color="#10b981"></div>
+            <div class="swatch" style="background:#f43f5e;" data-color="#f43f5e"></div>
+            <div class="swatch" style="background:#8b5cf6;" data-color="#8b5cf6"></div>
+            <div class="swatch" style="background:#f97316;" data-color="#f97316"></div>
           </div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-title">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-          Footer Tagline
-        </div>
+        <div class="card-title">📝 Footer Tagline</div>
         <div class="form-group">
-          <label>Footer description (beneath logo in footer)</label>
-          <textarea id="b-footerTagline" rows="2" placeholder="Bringing the best structures from paper to the ground. Building dreams for a better future."></textarea>
+          <label>Text shown beneath the logo in the footer</label>
+          <textarea id="b-footerTagline" rows="2" placeholder="Bringing the best structures from paper to the ground."></textarea>
         </div>
       </div>
     </div>
 
-    <!-- ── COMPANY DETAILS ── -->
+    <!-- COMPANY -->
     <div class="panel" id="panel-company">
-      <div class="panel-header">
-        <h2>Company Details</h2>
-        <p>Update contact information shown across the website.</p>
-      </div>
+      <div class="panel-header"><h2>Company Details</h2><p>Contact info and social links shown across the site.</p></div>
       <div class="card">
         <div class="card-title">📞 Contact Information</div>
         <div class="form-grid">
-          <div class="form-group">
-            <label>Phone / WhatsApp Number</label>
-            <input type="tel" id="c-phone" placeholder="0758 913 245"/>
-          </div>
-          <div class="form-group">
-            <label>WhatsApp Link (full number with country code)</label>
-            <input type="text" id="c-whatsapp" placeholder="254758913245"/>
-          </div>
-          <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" id="c-email" placeholder="etayaeugene@gmail.com"/>
-          </div>
-          <div class="form-group">
-            <label>Office / Physical Address</label>
-            <input type="text" id="c-address" placeholder="Nairobi, Kenya"/>
-          </div>
-          <div class="form-group">
-            <label>Working Hours</label>
-            <input type="text" id="c-hours" placeholder="Mon – Sat: 7:00 AM – 6:00 PM"/>
-          </div>
-          <div class="form-group">
-            <label>NCA / Registration Number</label>
-            <input type="text" id="c-nca" placeholder="NCA Registered"/>
-          </div>
+          <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" id="c-phone" placeholder="0758 913 245"/></div>
+          <div class="form-group"><label>WhatsApp number (with country code)</label><input type="text" id="c-whatsapp" placeholder="254758913245"/></div>
+          <div class="form-group"><label>Email Address</label><input type="email" id="c-email" placeholder="etayaeugene@gmail.com"/></div>
+          <div class="form-group"><label>Office / Physical Address</label><input type="text" id="c-address" placeholder="Nairobi, Kenya"/></div>
+          <div class="form-group"><label>Working Hours</label><input type="text" id="c-hours" placeholder="Mon – Sat: 7:00 AM – 6:00 PM"/></div>
+          <div class="form-group"><label>NCA / Registration</label><input type="text" id="c-nca" placeholder="NCA Registered"/></div>
         </div>
       </div>
       <div class="card">
         <div class="card-title">🗺️ Google Maps Embed URL</div>
-        <div class="form-group">
-          <label>Paste the embed URL from Google Maps → Share → Embed a map</label>
-          <textarea id="c-mapUrl" rows="3" placeholder="https://www.google.com/maps/embed?pb=..."></textarea>
-        </div>
+        <div class="form-group"><label>Paste the embed URL from Google Maps → Share → Embed a map</label><textarea id="c-mapUrl" rows="3" placeholder="https://www.google.com/maps/embed?pb=..."></textarea></div>
       </div>
       <div class="card">
         <div class="card-title">🔗 Social Media Links</div>
         <div class="form-grid">
-          <div class="form-group">
-            <label>Facebook URL</label>
-            <input type="url" id="c-facebook" placeholder="https://facebook.com/etayaworks"/>
-          </div>
-          <div class="form-group">
-            <label>Instagram URL</label>
-            <input type="url" id="c-instagram" placeholder="https://instagram.com/etayaworks"/>
-          </div>
-          <div class="form-group">
-            <label>LinkedIn URL</label>
-            <input type="url" id="c-linkedin" placeholder="https://linkedin.com/company/etayaworks"/>
-          </div>
+          <div class="form-group"><label>Facebook URL</label><input type="url" id="c-facebook" placeholder="https://facebook.com/etayaworks"/></div>
+          <div class="form-group"><label>Instagram URL</label><input type="url" id="c-instagram" placeholder="https://instagram.com/etayaworks"/></div>
+          <div class="form-group"><label>LinkedIn URL</label><input type="url" id="c-linkedin" placeholder="https://linkedin.com/company/etayaworks"/></div>
         </div>
       </div>
     </div>
 
-    <!-- ── HERO & STATS ── -->
+    <!-- HERO -->
     <div class="panel" id="panel-hero">
-      <div class="panel-header">
-        <h2>Hero & Stats</h2>
-        <p>Edit the main headline, subheading, and the 4 stat counters.</p>
-      </div>
+      <div class="panel-header"><h2>Hero & Stats</h2><p>Main headline, subheading, and the 4 stat counters.</p></div>
       <div class="card">
         <div class="card-title">🏠 Hero Section</div>
         <div class="form-grid">
-          <div class="form-group">
-            <label>Hero Line 1 (large text)</label>
-            <input type="text" id="h-line1" placeholder="From Paper"/>
-          </div>
-          <div class="form-group">
-            <label>Hero Line 2 (accent gold text)</label>
-            <input type="text" id="h-line2" placeholder="To Ground."/>
-          </div>
-          <div class="form-group full">
-            <label>Hero Subheading</label>
-            <textarea id="h-sub" rows="3" placeholder="We don't just build structures — we materialise visions..."></textarea>
-          </div>
+          <div class="form-group"><label>Hero Line 1</label><input type="text" id="h-line1" placeholder="From Paper"/></div>
+          <div class="form-group"><label>Hero Line 2 (accent colour)</label><input type="text" id="h-line2" placeholder="To Ground."/></div>
+          <div class="form-group full"><label>Subheading</label><textarea id="h-sub" rows="3"></textarea></div>
         </div>
       </div>
       <div class="card">
-        <div class="card-title">📊 Stats Bar (4 counters)</div>
+        <div class="card-title">📊 Stats Bar</div>
         <div class="stats-grid" id="statsEditor"></div>
       </div>
       <div class="card">
-        <div class="card-title">🏷️ Marquee / Ticker</div>
-        <div class="form-group">
-          <label>Services shown in scrolling ticker (comma-separated)</label>
-          <textarea id="h-marquee" rows="3" placeholder="Residential Construction, Commercial Buildings, Renovation & Remodelling, Architectural Design, Interior Finishing, Project Management, Structural Engineering, Landscaping"></textarea>
-        </div>
+        <div class="card-title">🏷️ Scrolling Ticker</div>
+        <div class="form-group"><label>Services (comma-separated)</label><textarea id="h-marquee" rows="3"></textarea></div>
       </div>
     </div>
 
-    <!-- ── TEAM ── -->
+    <!-- TEAM -->
     <div class="panel" id="panel-team">
       <div class="panel-header">
         <h2>Team Members</h2>
-        <p>Add, edit, or remove team members shown on the website.</p>
+        <p>Add, edit, or remove team members. Upload a real photo from your device or paste an image URL.</p>
       </div>
       <div class="card">
         <div class="card-title">👷 Team Builder</div>
@@ -650,31 +387,32 @@
       </div>
     </div>
 
-    <!-- ── ABOUT ── -->
-    <div class="panel" id="panel-about">
+    <!-- PORTFOLIO -->
+    <div class="panel" id="panel-portfolio">
       <div class="panel-header">
-        <h2>About Section</h2>
-        <p>Edit the About Us description, pillars, and vision statement.</p>
+        <h2>Portfolio Projects</h2>
+        <p>Add, edit, or remove projects shown in "Structures That Speak for Themselves". Upload real project photos.</p>
       </div>
+      <div class="card">
+        <div class="card-title">🏗️ Projects Gallery</div>
+        <div class="portfolio-editor" id="portfolioEditor"></div>
+        <button class="add-btn" id="addProjectBtn" style="margin-top:1rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Project
+        </button>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="panel" id="panel-about">
+      <div class="panel-header"><h2>About Section</h2><p>Edit the about text, pillars, vision, and photos.</p></div>
       <div class="card">
         <div class="card-title">✍️ About Copy</div>
         <div class="form-grid">
-          <div class="form-group full">
-            <label>About Heading</label>
-            <input type="text" id="a-heading" placeholder="We Build the Dreams of a Better Future"/>
-          </div>
-          <div class="form-group full">
-            <label>Paragraph 1</label>
-            <textarea id="a-para1" rows="4"></textarea>
-          </div>
-          <div class="form-group full">
-            <label>Paragraph 2</label>
-            <textarea id="a-para2" rows="4"></textarea>
-          </div>
-          <div class="form-group full">
-            <label>Vision Statement</label>
-            <textarea id="a-vision" rows="2" placeholder="To bring out the best structure from paper to the ground..."></textarea>
-          </div>
+          <div class="form-group full"><label>Heading</label><input type="text" id="a-heading"/></div>
+          <div class="form-group full"><label>Paragraph 1</label><textarea id="a-para1" rows="4"></textarea></div>
+          <div class="form-group full"><label>Paragraph 2</label><textarea id="a-para2" rows="4"></textarea></div>
+          <div class="form-group full"><label>Vision Statement</label><textarea id="a-vision" rows="2"></textarea></div>
         </div>
       </div>
       <div class="card">
@@ -682,106 +420,115 @@
         <div id="pillarsEditor"></div>
       </div>
       <div class="card">
-        <div class="card-title">🖼️ About Section Photos</div>
+        <div class="card-title">🖼️ About Photos</div>
         <div class="form-grid">
           <div class="form-group">
-            <label>Main Photo URL</label>
-            <input type="url" id="a-img1" placeholder="https://images.unsplash.com/..."/>
+            <label>Main Photo</label>
+            <div class="img-upload-widget">
+              <div class="img-preview-wrap" style="height:140px;">
+                <img id="a-img1-preview" src="" style="height:140px;display:none;"/>
+                <div class="no-img" id="a-img1-noimg">No image set</div>
+              </div>
+              <div class="img-upload-controls">
+                <label class="upload-btn" for="a-img1-file" style="font-size:0.75rem;">📁 Upload</label>
+                <input type="file" id="a-img1-file" accept="image/*"/>
+                <input type="url" id="a-img1-url" placeholder="Or paste URL…"/>
+              </div>
+            </div>
           </div>
           <div class="form-group">
-            <label>Accent Photo URL</label>
-            <input type="url" id="a-img2" placeholder="https://images.unsplash.com/..."/>
+            <label>Accent Photo</label>
+            <div class="img-upload-widget">
+              <div class="img-preview-wrap" style="height:140px;">
+                <img id="a-img2-preview" src="" style="height:140px;display:none;"/>
+                <div class="no-img" id="a-img2-noimg">No image set</div>
+              </div>
+              <div class="img-upload-controls">
+                <label class="upload-btn" for="a-img2-file" style="font-size:0.75rem;">📁 Upload</label>
+                <input type="file" id="a-img2-file" accept="image/*"/>
+                <input type="url" id="a-img2-url" placeholder="Or paste URL…"/>
+              </div>
+            </div>
           </div>
           <div class="form-group">
-            <label>Years of Excellence (badge number)</label>
+            <label>Years of Excellence (badge)</label>
             <input type="text" id="a-years" placeholder="12"/>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ── CONTACT ── -->
+    <!-- CONTACT -->
     <div class="panel" id="panel-contact">
-      <div class="panel-header">
-        <h2>Contact Section</h2>
-        <p>Edit the contact section heading and Formspree form endpoint.</p>
-      </div>
+      <div class="panel-header"><h2>Contact Section</h2><p>Heading, subtext, and Formspree form URL.</p></div>
       <div class="card">
-        <div class="card-title">📩 Contact Form (Formspree)</div>
+        <div class="card-title">📩 Contact Form</div>
         <div class="form-grid">
-          <div class="form-group full">
-            <label>Contact Section Heading</label>
-            <input type="text" id="ct-heading" placeholder="Let's Build Something Great Together"/>
-          </div>
-          <div class="form-group full">
-            <label>Contact Section Subtext</label>
-            <textarea id="ct-subtext" rows="3" placeholder="Whether you have a full brief or just an idea on a napkin..."></textarea>
-          </div>
-          <div class="form-group full">
-            <label>Formspree Form URL (from formspree.io dashboard)</label>
-            <input type="url" id="ct-formspree" placeholder="https://formspree.io/f/YOUR_FORM_ID"/>
-          </div>
+          <div class="form-group full"><label>Heading</label><input type="text" id="ct-heading"/></div>
+          <div class="form-group full"><label>Subtext</label><textarea id="ct-subtext" rows="3"></textarea></div>
+          <div class="form-group full"><label>Formspree URL</label><input type="url" id="ct-formspree" placeholder="https://formspree.io/f/YOUR_FORM_ID"/></div>
         </div>
-        <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;">📝 Sign up at <strong style="color:var(--text)">formspree.io</strong> with <strong style="color:var(--gold)">etayaeugene@gmail.com</strong> to get your Form ID and start receiving enquiries by email.</p>
+        <p style="font-size:0.8rem;color:var(--muted);margin-top:0.75rem;">Sign up at <strong style="color:var(--text)">formspree.io</strong> with <strong style="color:var(--gold)">etayaeugene@gmail.com</strong> to receive enquiries by email.</p>
       </div>
     </div>
 
-    <!-- ── SETTINGS ── -->
+    <!-- SETTINGS -->
     <div class="panel" id="panel-settings">
-      <div class="panel-header">
-        <h2>Settings</h2>
-        <p>Change admin password and manage site data.</p>
-      </div>
+      <div class="panel-header"><h2>Settings</h2><p>Password and data management.</p></div>
       <div class="card">
-        <div class="card-title">🔐 Change Admin Password</div>
+        <div class="card-title">🔐 Change Password</div>
         <div class="form-grid">
-          <div class="form-group">
-            <label>New Password</label>
-            <input type="password" id="s-newPass" placeholder="Enter new password"/>
-          </div>
-          <div class="form-group">
-            <label>Confirm Password</label>
-            <input type="password" id="s-confirmPass" placeholder="Repeat new password"/>
-          </div>
+          <div class="form-group"><label>New Password</label><input type="password" id="s-newPass"/></div>
+          <div class="form-group"><label>Confirm Password</label><input type="password" id="s-confirmPass"/></div>
         </div>
         <button class="save-all-btn" style="margin-top:1rem;" id="changePassBtn">Update Password</button>
         <div id="passMsg" style="font-size:0.82rem;margin-top:0.5rem;display:none;"></div>
       </div>
       <div class="card">
         <div class="card-title">🗑️ Reset All Content</div>
-        <p style="color:var(--muted);font-size:0.875rem;margin-bottom:1rem;">This will restore the website to the original default content. This action cannot be undone.</p>
+        <p style="color:var(--muted);font-size:0.875rem;margin-bottom:1rem;">Restore all website content to original defaults. Cannot be undone.</p>
         <button onclick="resetAll()" style="padding:0.5rem 1.25rem;background:transparent;border:1px solid var(--danger);color:var(--danger);border-radius:6px;cursor:pointer;font-size:0.875rem;font-weight:600;">Reset to Defaults</button>
       </div>
       <div class="card">
         <div class="card-title">ℹ️ How Changes Work</div>
-        <p style="color:var(--muted);font-size:0.875rem;line-height:1.7;">Changes you make here are saved in your browser's local storage and applied automatically when visitors open <strong style="color:var(--text)">index.html</strong>. Since this is a GitHub Pages site (no server), the data lives in the visitor's browser. For a permanent solution, after editing here, click <strong style="color:var(--gold)">"Export for GitHub"</strong> below to download an updated index.html with all changes baked in.</p>
+        <p style="color:var(--muted);font-size:0.875rem;line-height:1.7;">Changes save to browser localStorage and appear live on index.html. For permanent baked-in changes, click Export to download an updated index.html.</p>
         <button onclick="exportHTML()" style="margin-top:1rem;padding:0.5rem 1.25rem;background:var(--gold);color:#000;border:none;border-radius:6px;cursor:pointer;font-size:0.875rem;font-weight:600;">⬇ Export Updated index.html</button>
       </div>
     </div>
 
-  </div><!-- /content -->
-</div><!-- /main -->
+  </div>
+</div>
 
-<!-- TOAST -->
-<div class="toast" id="toast">✅ Changes saved!</div>
+<div class="toast" id="toast">✅ Saved!</div>
 
 <script>
-/* ────────────────────────────────────────────
-   DEFAULTS
-──────────────────────────────────────────── */
+/* ─── HELPERS ─── */
+function toBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+function setImgWidget(previewId, noimgId, src) {
+  const img = document.getElementById(previewId);
+  const noimg = document.getElementById(noimgId);
+  if (src) { img.src = src; img.style.display = 'block'; noimg.style.display = 'none'; }
+  else { img.src = ''; img.style.display = 'none'; noimg.style.display = 'block'; }
+}
+
+/* ─── DEFAULTS ─── */
 const DEFAULTS = {
   branding: {
-    logoMark: 'E', logoText: 'TAYAWORKS',
-    tagline: 'Est. Nairobi · Kenya',
-    accentColor: '#E8A020',
+    logoMark: 'E', logoText: 'TAYAWORKS', logoImg: '',
+    tagline: 'Est. Nairobi · Kenya', accentColor: '#E8A020',
     footerTagline: 'Bringing the best structures from paper to the ground. Building dreams for a better future.'
   },
   company: {
-    phone: '0758 913 245', whatsapp: '254758913245',
-    email: 'etayaeugene@gmail.com',
-    address: 'Nairobi, Kenya',
-    hours: 'Mon – Sat: 7:00 AM – 6:00 PM',
-    nca: 'NCA Registered',
+    phone: '0758 913 245', whatsapp: '254758913245', email: 'etayaeugene@gmail.com',
+    address: 'Nairobi, Kenya', hours: 'Mon – Sat: 7:00 AM – 6:00 PM', nca: 'NCA Registered',
     mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255281.19036275234!2d36.70730315134993!3d-1.3028617836290428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1172d84d49a7%3A0xf7cf0254b297924c!2sNairobi%2C%20Kenya!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske',
     facebook: '#', instagram: '#', linkedin: '#'
   },
@@ -790,10 +537,8 @@ const DEFAULTS = {
     sub: "We don't just build structures — we materialise visions. Every beam, every wall, every skyline starts with a dream. We make it real.",
     marquee: 'Residential Construction, Commercial Buildings, Renovation & Remodelling, Architectural Design, Interior Finishing, Project Management, Structural Engineering, Landscaping',
     stats: [
-      { value: '120+', label: 'Projects Built' },
-      { value: '12',   label: 'Years Experience' },
-      { value: '98%',  label: 'Client Satisfaction' },
-      { value: '50+',  label: 'Skilled Professionals' }
+      { value: '120+', label: 'Projects Built' }, { value: '12', label: 'Years Experience' },
+      { value: '98%', label: 'Client Satisfaction' }, { value: '50+', label: 'Skilled Professionals' }
     ]
   },
   team: [
@@ -802,10 +547,18 @@ const DEFAULTS = {
     { name: 'James Kariuki', role: 'Senior Site Manager', bio: '10 years on-site management, specialising in high-rise commercial and mixed-use projects.', photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80' },
     { name: 'Grace Wanjiku', role: 'Quantity Surveyor', bio: 'MRICS-qualified, keeping every project on budget without compromising quality.', photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80' }
   ],
+  portfolio: [
+    { title: 'Luxury Villa – Karen', category: 'residential', desc: '6-bedroom villa with pool and landscaped garden. Delivered 3 weeks ahead of schedule.', photo: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700&q=80' },
+    { title: 'Office Block – Westlands', category: 'commercial', desc: '8-storey commercial building with Grade A finishes and smart energy systems.', photo: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80' },
+    { title: 'Full Renovation – Kileleshwa', category: 'renovation', desc: 'Complete interior overhaul of a 1990s apartment block into modern luxury units.', photo: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80' },
+    { title: 'Townhouse Complex – Syokimau', category: 'residential', desc: '24-unit townhouse development completed on budget for a real estate developer.', photo: 'https://images.unsplash.com/photo-1567496898669-ee935f5f647a?w=700&q=80' },
+    { title: 'Retail Mall – Thika Road', category: 'commercial', desc: '15,000 sq.ft shopping complex with parking, food court, and anchor store fit-out.', photo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=80' },
+    { title: 'Heritage Restoration – CBD', category: 'renovation', desc: 'Careful restoration of a colonial-era building preserving original facade character.', photo: 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=700&q=80' }
+  ],
   about: {
     heading: 'We Build the Dreams of a Better Future',
-    para1: 'Etayaworks Building Company was founded on a single conviction: that every client deserves to see their vision rise from a blueprint into a living, breathing structure. We combine rigorous engineering with creative craftsmanship to deliver buildings that stand the test of time.',
-    para2: 'Based in Nairobi, we work across Kenya — from private residences to large-scale commercial developments. Our multidisciplinary team handles everything from the first sketch to the final key handover.',
+    para1: 'Etayaworks Building Company was founded on a single conviction: that every client deserves to see their vision rise from a blueprint into a living, breathing structure.',
+    para2: 'Based in Nairobi, we work across Kenya — from private residences to large-scale commercial developments.',
     vision: '"To bring out the best structure from paper to the ground — building dreams for a better future."',
     img1: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=80',
     img2: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&q=80',
@@ -824,200 +577,156 @@ const DEFAULTS = {
   password: 'etaya2024'
 };
 
-/* ────────────────────────────────────────────
-   STATE
-──────────────────────────────────────────── */
-function load(key) {
-  try { return JSON.parse(localStorage.getItem('ew_' + key)); } catch { return null; }
-}
+/* ─── STATE ─── */
+function load(key) { try { return JSON.parse(localStorage.getItem('ew_' + key)); } catch { return null; } }
 function save(key, val) { localStorage.setItem('ew_' + key, JSON.stringify(val)); }
-
 function getData(key) { return load(key) || JSON.parse(JSON.stringify(DEFAULTS[key])); }
+let teamData = [], portfolioData = [];
 
-/* ────────────────────────────────────────────
-   LOGIN
-──────────────────────────────────────────── */
+/* ─── LOGIN ─── */
 const loginScreen = document.getElementById('loginScreen');
-const loginBtn    = document.getElementById('loginBtn');
-const loginPass   = document.getElementById('loginPass');
-const loginError  = document.getElementById('loginError');
-
 function getPassword() { return load('password') || DEFAULTS.password; }
 
-loginBtn.addEventListener('click', doLogin);
-loginPass.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+document.getElementById('loginBtn').addEventListener('click', doLogin);
+document.getElementById('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
 function doLogin() {
-  const pw = loginPass.value;
-  if (pw === getPassword()) {
+  if (document.getElementById('loginPass').value === getPassword()) {
     loginScreen.style.display = 'none';
+    sessionStorage.setItem('ew_authed', '1');
     loadAllPanels();
   } else {
-    loginError.style.display = 'block';
-    loginPass.value = '';
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('loginPass').value = '';
+  }
+}
+if (sessionStorage.getItem('ew_authed')) { loginScreen.style.display = 'none'; setTimeout(loadAllPanels, 0); }
+
+/* ─── NAV ─── */
+const titles = { branding:'Branding & Logo', company:'Company Details', hero:'Hero & Stats', team:'Team Members', portfolio:'Portfolio Projects', about:'About Section', contact:'Contact Info', settings:'Settings' };
+document.querySelectorAll('.nav-item[data-panel]').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item[data-panel]').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    item.classList.add('active');
+    document.getElementById('panel-' + item.dataset.panel).classList.add('active');
+    document.getElementById('topbar-title').textContent = titles[item.dataset.panel] || '';
+  });
+});
+
+/* ─── BRANDING ─── */
+function loadBranding() {
+  const d = getData('branding');
+  document.getElementById('b-logoMark').value = d.logoMark;
+  document.getElementById('b-logoText').value = d.logoText;
+  document.getElementById('b-tagline').value = d.tagline;
+  document.getElementById('b-accentColor').value = d.accentColor;
+  document.getElementById('b-accentHex').value = d.accentColor;
+  document.getElementById('b-footerTagline').value = d.footerTagline;
+  updateLogoDisplay(d.logoMark, d.logoText, d.logoImg || '');
+  updateSwatches(d.accentColor);
+}
+
+function updateLogoDisplay(mark, text, imgSrc) {
+  // Sidebar badge
+  const sbMark = document.getElementById('sb-logo-mark');
+  if (imgSrc) { sbMark.innerHTML = `<img src="${imgSrc}" alt="logo"/>`; }
+  else { sbMark.innerHTML = mark || 'E'; }
+  document.getElementById('sb-logo-text').textContent = text || 'TAYAWORKS';
+  // Admin logo preview
+  const prevMark = document.getElementById('prev-mark');
+  if (imgSrc) { prevMark.innerHTML = `<img src="${imgSrc}" alt="logo" style="width:100%;height:100%;object-fit:contain;"/>`; }
+  else { prevMark.textContent = mark || 'E'; }
+  document.getElementById('prev-text').textContent = text || 'TAYAWORKS';
+  // Upload area preview box
+  const preview = document.getElementById('logoImgPreview');
+  const fallback = document.getElementById('logoImgFallback');
+  if (imgSrc) {
+    preview.innerHTML = `<img src="${imgSrc}" alt="logo" style="width:100%;height:100%;object-fit:contain;"/>`;
+  } else {
+    preview.innerHTML = `<span id="logoImgFallback">${mark || 'E'}</span>`;
   }
 }
 
-// Auto-login if session flag set
-if (sessionStorage.getItem('ew_authed')) {
-  loginScreen.style.display = 'none';
-  setTimeout(loadAllPanels, 0);
-} else {
-  loginBtn.addEventListener('click', () => sessionStorage.setItem('ew_authed', '1'), { once: true });
-}
-
-/* ────────────────────────────────────────────
-   NAV
-──────────────────────────────────────────── */
-const navItems  = document.querySelectorAll('.nav-item[data-panel]');
-const panels    = document.querySelectorAll('.panel');
-const topbarTitle = document.getElementById('topbar-title');
-const titles = {
-  branding:'Branding & Logo', company:'Company Details',
-  hero:'Hero & Stats', team:'Team Members',
-  about:'About Section', contact:'Contact Info', settings:'Settings'
-};
-
-navItems.forEach(item => {
-  item.addEventListener('click', () => {
-    navItems.forEach(i => i.classList.remove('active'));
-    panels.forEach(p => p.classList.remove('active'));
-    item.classList.add('active');
-    document.getElementById('panel-' + item.dataset.panel).classList.add('active');
-    topbarTitle.textContent = titles[item.dataset.panel] || '';
-  });
+// Logo file upload
+document.getElementById('logoFileInput').addEventListener('change', async (e) => {
+  const file = e.target.files[0]; if (!file) return;
+  if (file.size > 500000) { showToast('❌ Image too large. Max 500KB for logos.', true); return; }
+  const b64 = await toBase64(file);
+  const d = getData('branding'); d.logoImg = b64;
+  save('branding', d);
+  updateLogoDisplay(d.logoMark, d.logoText, b64);
+  showToast('✅ Logo image uploaded!');
 });
 
-/* ────────────────────────────────────────────
-   BRANDING PANEL
-──────────────────────────────────────────── */
-function loadBranding() {
-  const d = getData('branding');
-  document.getElementById('b-logoMark').value    = d.logoMark;
-  document.getElementById('b-logoText').value    = d.logoText;
-  document.getElementById('b-tagline').value     = d.tagline;
-  document.getElementById('b-accentColor').value = d.accentColor;
-  document.getElementById('b-accentHex').value   = d.accentColor;
-  document.getElementById('b-footerTagline').value = d.footerTagline;
-  updateLogoPreview(d.logoMark, d.logoText);
-  updateSwatches(d.accentColor);
+document.getElementById('clearLogoImg').addEventListener('click', () => {
+  const d = getData('branding'); d.logoImg = '';
+  save('branding', d);
+  updateLogoDisplay(d.logoMark, d.logoText, '');
+  showToast('Logo image removed');
+});
 
-  // sidebar live
-  document.getElementById('sb-logo-mark').textContent = d.logoMark;
-  document.getElementById('sb-logo-text').textContent = d.logoText;
-}
-
+['b-logoMark','b-logoText'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', () => {
+    const d = getData('branding');
+    updateLogoDisplay(document.getElementById('b-logoMark').value, document.getElementById('b-logoText').value, d.logoImg || '');
+  });
+});
+document.getElementById('b-accentColor')?.addEventListener('input', e => { document.getElementById('b-accentHex').value = e.target.value; updateSwatches(e.target.value); });
+document.getElementById('b-accentHex')?.addEventListener('input', e => { document.getElementById('b-accentColor').value = e.target.value; updateSwatches(e.target.value); });
+document.querySelectorAll('.swatch').forEach(s => {
+  s.addEventListener('click', () => { const c = s.dataset.color; document.getElementById('b-accentColor').value = c; document.getElementById('b-accentHex').value = c; updateSwatches(c); });
+});
+function updateSwatches(color) { document.querySelectorAll('.swatch').forEach(s => s.classList.toggle('selected', s.dataset.color === color)); }
 function saveBranding() {
-  const d = {
-    logoMark: document.getElementById('b-logoMark').value || DEFAULTS.branding.logoMark,
-    logoText: document.getElementById('b-logoText').value || DEFAULTS.branding.logoText,
-    tagline: document.getElementById('b-tagline').value,
-    accentColor: document.getElementById('b-accentHex').value || DEFAULTS.branding.accentColor,
-    footerTagline: document.getElementById('b-footerTagline').value
-  };
+  const d = getData('branding');
+  d.logoMark = document.getElementById('b-logoMark').value || DEFAULTS.branding.logoMark;
+  d.logoText = document.getElementById('b-logoText').value || DEFAULTS.branding.logoText;
+  d.tagline = document.getElementById('b-tagline').value;
+  d.accentColor = document.getElementById('b-accentHex').value || DEFAULTS.branding.accentColor;
+  d.footerTagline = document.getElementById('b-footerTagline').value;
   save('branding', d);
 }
 
-function updateLogoPreview(mark, text) {
-  document.getElementById('prev-mark').textContent = mark || 'E';
-  document.getElementById('prev-text').textContent = text || 'TAYAWORKS';
-  document.getElementById('sb-logo-mark').textContent = mark || 'E';
-  document.getElementById('sb-logo-text').textContent = text || 'TAYAWORKS';
-}
-
-function updateSwatches(color) {
-  document.querySelectorAll('.swatch').forEach(s => {
-    s.classList.toggle('selected', s.dataset.color === color);
-  });
-}
-
-['b-logoMark','b-logoText'].forEach(id => {
-  document.getElementById(id)?.addEventListener('input', () =>
-    updateLogoPreview(document.getElementById('b-logoMark').value, document.getElementById('b-logoText').value)
-  );
-});
-
-document.getElementById('b-accentColor')?.addEventListener('input', e => {
-  document.getElementById('b-accentHex').value = e.target.value;
-  updateSwatches(e.target.value);
-});
-document.getElementById('b-accentHex')?.addEventListener('input', e => {
-  document.getElementById('b-accentColor').value = e.target.value;
-  updateSwatches(e.target.value);
-});
-
-document.querySelectorAll('.swatch').forEach(s => {
-  s.addEventListener('click', () => {
-    const c = s.dataset.color;
-    document.getElementById('b-accentColor').value = c;
-    document.getElementById('b-accentHex').value = c;
-    updateSwatches(c);
-  });
-});
-
-/* ────────────────────────────────────────────
-   COMPANY PANEL
-──────────────────────────────────────────── */
+/* ─── COMPANY ─── */
 function loadCompany() {
   const d = getData('company');
-  ['phone','whatsapp','email','address','hours','nca','mapUrl','facebook','instagram','linkedin']
-    .forEach(k => { const el = document.getElementById('c-' + k); if(el) el.value = d[k] || ''; });
+  ['phone','whatsapp','email','address','hours','nca','mapUrl','facebook','instagram','linkedin'].forEach(k => { const el = document.getElementById('c-' + k); if(el) el.value = d[k] || ''; });
 }
 function saveCompany() {
   const d = {};
-  ['phone','whatsapp','email','address','hours','nca','mapUrl','facebook','instagram','linkedin']
-    .forEach(k => { d[k] = document.getElementById('c-' + k)?.value || ''; });
+  ['phone','whatsapp','email','address','hours','nca','mapUrl','facebook','instagram','linkedin'].forEach(k => { d[k] = document.getElementById('c-' + k)?.value || ''; });
   save('company', d);
 }
 
-/* ────────────────────────────────────────────
-   HERO PANEL
-──────────────────────────────────────────── */
+/* ─── HERO ─── */
 function loadHero() {
   const d = getData('hero');
-  document.getElementById('h-line1').value   = d.line1;
-  document.getElementById('h-line2').value   = d.line2;
-  document.getElementById('h-sub').value     = d.sub;
+  document.getElementById('h-line1').value = d.line1;
+  document.getElementById('h-line2').value = d.line2;
+  document.getElementById('h-sub').value = d.sub;
   document.getElementById('h-marquee').value = d.marquee;
-
-  // Stats
   const grid = document.getElementById('statsEditor');
   grid.innerHTML = '';
   d.stats.forEach((s, i) => {
-    const div = document.createElement('div');
-    div.className = 'stat-card';
-    div.innerHTML = `
-      <div class="form-group" style="margin-bottom:0.75rem;">
-        <label>Stat ${i+1} Value</label>
-        <input type="text" class="stat-val" data-i="${i}" value="${s.value}" placeholder="120+"/>
-      </div>
-      <div class="form-group">
-        <label>Stat ${i+1} Label</label>
-        <input type="text" class="stat-lbl" data-i="${i}" value="${s.label}" placeholder="Projects Built"/>
-      </div>`;
+    const div = document.createElement('div'); div.className = 'stat-card';
+    div.innerHTML = `<div class="form-group" style="margin-bottom:0.75rem;"><label>Stat ${i+1} Value</label><input type="text" class="stat-val" data-i="${i}" value="${s.value}"/></div><div class="form-group"><label>Stat ${i+1} Label</label><input type="text" class="stat-lbl" data-i="${i}" value="${s.label}"/></div>`;
     grid.appendChild(div);
   });
 }
 function saveHero() {
   const d = getData('hero');
-  d.line1   = document.getElementById('h-line1').value;
-  d.line2   = document.getElementById('h-line2').value;
-  d.sub     = document.getElementById('h-sub').value;
+  d.line1 = document.getElementById('h-line1').value;
+  d.line2 = document.getElementById('h-line2').value;
+  d.sub = document.getElementById('h-sub').value;
   d.marquee = document.getElementById('h-marquee').value;
   document.querySelectorAll('.stat-val').forEach(el => { d.stats[el.dataset.i].value = el.value; });
   document.querySelectorAll('.stat-lbl').forEach(el => { d.stats[el.dataset.i].label = el.value; });
   save('hero', d);
 }
 
-/* ────────────────────────────────────────────
-   TEAM PANEL
-──────────────────────────────────────────── */
-let teamData = [];
-
-function loadTeam() {
-  teamData = getData('team');
-  renderTeam();
-}
+/* ─── TEAM ─── */
+function loadTeam() { teamData = getData('team'); renderTeam(); }
 
 function renderTeam() {
   const editor = document.getElementById('teamEditor');
@@ -1025,55 +734,66 @@ function renderTeam() {
   teamData.forEach((m, i) => {
     const card = document.createElement('div');
     card.className = 'team-member-card';
+    const photoSrc = m.photo || DEFAULTS.team[0].photo;
     card.innerHTML = `
       <button class="delete-btn" data-i="${i}" title="Remove">✕</button>
       <div class="member-header">
-        <img class="member-avatar" src="${m.photo || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80'}" alt="${m.name}" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80'"/>
+        <img class="member-avatar" id="tm-avatar-${i}" src="${photoSrc}" alt="${m.name}" onerror="this.src='${DEFAULTS.team[0].photo}'"/>
         <div class="member-name-role">
-          <strong>${m.name || 'Team Member'}</strong>
-          <span>${m.role || 'Role'}</span>
+          <strong id="tm-hname-${i}">${m.name || 'Team Member'}</strong>
+          <span id="tm-hrole-${i}">${m.role || 'Role'}</span>
         </div>
       </div>
       <div class="form-grid">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" class="tm-name" data-i="${i}" value="${m.name}"/>
-        </div>
-        <div class="form-group">
-          <label>Job Title / Role</label>
-          <input type="text" class="tm-role" data-i="${i}" value="${m.role}"/>
-        </div>
-        <div class="form-group full">
-          <label>Short Bio</label>
-          <textarea class="tm-bio" data-i="${i}" rows="2">${m.bio}</textarea>
-        </div>
-        <div class="form-group full">
-          <label>Photo URL (Unsplash, direct image link, etc.)</label>
-          <input type="url" class="tm-photo" data-i="${i}" value="${m.photo}" placeholder="https://..."/>
+        <div class="form-group"><label>Full Name</label><input type="text" class="tm-name" data-i="${i}" value="${m.name}"/></div>
+        <div class="form-group"><label>Job Title / Role</label><input type="text" class="tm-role" data-i="${i}" value="${m.role}"/></div>
+        <div class="form-group full"><label>Short Bio</label><textarea class="tm-bio" data-i="${i}" rows="2">${m.bio}</textarea></div>
+      </div>
+      <div style="margin-top:0.75rem;">
+        <label style="font-size:0.78rem;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:0.5rem;">Photo</label>
+        <div class="img-upload-widget">
+          <div class="img-preview-wrap" style="height:120px;">
+            <img id="tm-img-prev-${i}" src="${photoSrc}" style="height:120px;object-fit:cover;display:block;" alt=""/>
+          </div>
+          <div class="img-upload-controls">
+            <label class="upload-btn" for="tm-file-${i}" style="font-size:0.75rem;">📁 Upload Photo</label>
+            <input type="file" id="tm-file-${i}" accept="image/*" data-i="${i}" class="tm-file"/>
+            <input type="url" class="tm-photo-url" data-i="${i}" value="${m.photo}" placeholder="Or paste image URL…"/>
+          </div>
+          <p class="img-size-note" style="padding:0 0.75rem 0.5rem;">Max 800KB recommended per team photo.</p>
         </div>
       </div>`;
     editor.appendChild(card);
   });
 
-  // Live update avatar on photo change
-  editor.querySelectorAll('.tm-photo').forEach(el => {
-    el.addEventListener('input', () => {
-      const i = el.dataset.i;
-      const img = el.closest('.team-member-card').querySelector('.member-avatar');
-      img.src = el.value || DEFAULTS.team[0].photo;
+  // File upload handlers
+  editor.querySelectorAll('.tm-file').forEach(el => {
+    el.addEventListener('change', async (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      if (file.size > 1000000) { showToast('❌ Max 1MB per image', true); return; }
+      const b64 = await toBase64(file);
+      const i = parseInt(el.dataset.i);
+      document.getElementById(`tm-img-prev-${i}`).src = b64;
+      document.getElementById(`tm-avatar-${i}`).src = b64;
+      editor.querySelectorAll('.tm-photo-url')[i].value = b64;
     });
   });
 
-  // Live update header name/role
-  editor.querySelectorAll('.tm-name').forEach(el => {
+  // URL paste → update preview
+  editor.querySelectorAll('.tm-photo-url').forEach(el => {
     el.addEventListener('input', () => {
-      el.closest('.team-member-card').querySelector('.member-name-role strong').textContent = el.value || 'Team Member';
+      const i = parseInt(el.dataset.i);
+      document.getElementById(`tm-img-prev-${i}`).src = el.value;
+      document.getElementById(`tm-avatar-${i}`).src = el.value;
     });
   });
+
+  // Live name/role header update
+  editor.querySelectorAll('.tm-name').forEach(el => {
+    el.addEventListener('input', () => { document.getElementById(`tm-hname-${el.dataset.i}`).textContent = el.value || 'Team Member'; });
+  });
   editor.querySelectorAll('.tm-role').forEach(el => {
-    el.addEventListener('input', () => {
-      el.closest('.team-member-card').querySelector('.member-name-role span').textContent = el.value || 'Role';
-    });
+    el.addEventListener('input', () => { document.getElementById(`tm-hrole-${el.dataset.i}`).textContent = el.value || 'Role'; });
   });
 
   // Delete
@@ -1088,36 +808,140 @@ function renderTeam() {
 
 function saveTeam() {
   teamData = [];
-  document.querySelectorAll('.team-member-card').forEach(card => {
+  document.querySelectorAll('.team-member-card').forEach((card, i) => {
     teamData.push({
-      name:  card.querySelector('.tm-name').value,
-      role:  card.querySelector('.tm-role').value,
-      bio:   card.querySelector('.tm-bio').value,
-      photo: card.querySelector('.tm-photo').value
+      name: card.querySelector('.tm-name').value,
+      role: card.querySelector('.tm-role').value,
+      bio: card.querySelector('.tm-bio').value,
+      photo: card.querySelector('.tm-photo-url').value
     });
   });
   save('team', teamData);
 }
 
 document.getElementById('addMemberBtn')?.addEventListener('click', () => {
-  // collect current inputs first
   saveTeam();
-  teamData.push({ name: 'New Member', role: 'Job Title', bio: 'Brief bio here.', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80' });
+  teamData.push({ name: 'New Member', role: 'Job Title', bio: 'Brief bio here.', photo: DEFAULTS.team[0].photo });
   renderTeam();
   document.getElementById('teamEditor').lastElementChild?.scrollIntoView({ behavior: 'smooth' });
 });
 
-/* ────────────────────────────────────────────
-   ABOUT PANEL
-──────────────────────────────────────────── */
+/* ─── PORTFOLIO ─── */
+function loadPortfolio() { portfolioData = getData('portfolio'); renderPortfolio(); }
+
+function renderPortfolio() {
+  const editor = document.getElementById('portfolioEditor');
+  editor.innerHTML = '';
+  portfolioData.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'portfolio-card';
+    const photoSrc = p.photo || DEFAULTS.portfolio[0].photo;
+    card.innerHTML = `
+      <button class="delete-btn" data-i="${i}" title="Remove" style="z-index:2;">✕</button>
+      <div class="img-upload-widget" style="border-radius:0;border:none;border-bottom:1px solid var(--border);">
+        <div class="img-preview-wrap" style="height:180px;">
+          <img id="pf-img-prev-${i}" src="${photoSrc}" style="height:180px;object-fit:cover;display:block;" alt=""/>
+        </div>
+        <div class="img-upload-controls">
+          <label class="upload-btn" for="pf-file-${i}" style="font-size:0.75rem;">📁 Upload Photo</label>
+          <input type="file" id="pf-file-${i}" accept="image/*" data-i="${i}" class="pf-file"/>
+          <input type="url" class="pf-photo-url" data-i="${i}" value="${photoSrc}" placeholder="Or paste image URL…"/>
+        </div>
+        <p class="img-size-note" style="padding:0 0.75rem 0.5rem;">Recommended: landscape photo, at least 700×500px. Max 1MB.</p>
+      </div>
+      <div class="portfolio-card-body">
+        <div class="form-grid">
+          <div class="form-group"><label>Project Title</label><input type="text" class="pf-title" data-i="${i}" value="${p.title}"/></div>
+          <div class="form-group"><label>Category</label>
+            <select class="pf-category" data-i="${i}">
+              <option value="residential" ${p.category==='residential'?'selected':''}>Residential</option>
+              <option value="commercial" ${p.category==='commercial'?'selected':''}>Commercial</option>
+              <option value="renovation" ${p.category==='renovation'?'selected':''}>Renovation</option>
+            </select>
+          </div>
+          <div class="form-group full"><label>Description</label><textarea class="pf-desc" data-i="${i}" rows="2">${p.desc}</textarea></div>
+        </div>
+      </div>`;
+    editor.appendChild(card);
+  });
+
+  // File upload
+  editor.querySelectorAll('.pf-file').forEach(el => {
+    el.addEventListener('change', async (e) => {
+      const file = e.target.files[0]; if (!file) return;
+      if (file.size > 1500000) { showToast('❌ Max 1.5MB per project image', true); return; }
+      const b64 = await toBase64(file);
+      const i = parseInt(el.dataset.i);
+      document.getElementById(`pf-img-prev-${i}`).src = b64;
+      editor.querySelectorAll('.pf-photo-url')[i].value = b64;
+    });
+  });
+
+  // URL paste → preview
+  editor.querySelectorAll('.pf-photo-url').forEach(el => {
+    el.addEventListener('input', () => {
+      document.getElementById(`pf-img-prev-${parseInt(el.dataset.i)}`).src = el.value;
+    });
+  });
+
+  // Delete
+  editor.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      portfolioData.splice(parseInt(btn.dataset.i), 1);
+      renderPortfolio();
+    });
+  });
+}
+
+function savePortfolio() {
+  portfolioData = [];
+  document.querySelectorAll('.portfolio-card').forEach((card) => {
+    portfolioData.push({
+      title: card.querySelector('.pf-title').value,
+      category: card.querySelector('.pf-category').value,
+      desc: card.querySelector('.pf-desc').value,
+      photo: card.querySelector('.pf-photo-url').value
+    });
+  });
+  save('portfolio', portfolioData);
+}
+
+document.getElementById('addProjectBtn')?.addEventListener('click', () => {
+  savePortfolio();
+  portfolioData.push({ title: 'New Project', category: 'residential', desc: 'Project description here.', photo: DEFAULTS.portfolio[0].photo });
+  renderPortfolio();
+  document.getElementById('portfolioEditor').lastElementChild?.scrollIntoView({ behavior: 'smooth' });
+});
+
+/* ─── ABOUT ─── */
 function loadAbout() {
   const d = getData('about');
-  ['heading','para1','para2','vision','img1','img2','years'].forEach(k => {
-    const el = document.getElementById('a-' + k);
-    if(el) el.value = d[k] || '';
-  });
+  ['heading','para1','para2','vision','years'].forEach(k => { const el = document.getElementById('a-' + k); if(el) el.value = d[k] || ''; });
+  setImgWidget('a-img1-preview','a-img1-noimg', d.img1 || '');
+  document.getElementById('a-img1-url').value = d.img1 || '';
+  setImgWidget('a-img2-preview','a-img2-noimg', d.img2 || '');
+  document.getElementById('a-img2-url').value = d.img2 || '';
   renderPillars(d.pillars);
 }
+
+// About img1
+document.getElementById('a-img1-file')?.addEventListener('change', async (e) => {
+  const file = e.target.files[0]; if (!file) return;
+  if (file.size > 1500000) { showToast('❌ Max 1.5MB', true); return; }
+  const b64 = await toBase64(file);
+  setImgWidget('a-img1-preview','a-img1-noimg', b64);
+  document.getElementById('a-img1-url').value = b64;
+});
+document.getElementById('a-img1-url')?.addEventListener('input', e => { setImgWidget('a-img1-preview','a-img1-noimg', e.target.value); });
+// About img2
+document.getElementById('a-img2-file')?.addEventListener('change', async (e) => {
+  const file = e.target.files[0]; if (!file) return;
+  if (file.size > 1500000) { showToast('❌ Max 1.5MB', true); return; }
+  const b64 = await toBase64(file);
+  setImgWidget('a-img2-preview','a-img2-noimg', b64);
+  document.getElementById('a-img2-url').value = b64;
+});
+document.getElementById('a-img2-url')?.addEventListener('input', e => { setImgWidget('a-img2-preview','a-img2-noimg', e.target.value); });
 
 function renderPillars(pillars) {
   const editor = document.getElementById('pillarsEditor');
@@ -1125,100 +949,67 @@ function renderPillars(pillars) {
   pillars.forEach((p, i) => {
     const div = document.createElement('div');
     div.style.cssText = 'margin-bottom:1rem;padding:1rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;';
-    div.innerHTML = `
-      <div class="form-grid three">
-        <div class="form-group">
-          <label>Icon (emoji)</label>
-          <input type="text" class="pl-icon" data-i="${i}" value="${p.icon}" maxlength="4"/>
-        </div>
-        <div class="form-group">
-          <label>Pillar Title</label>
-          <input type="text" class="pl-title" data-i="${i}" value="${p.title}"/>
-        </div>
-        <div class="form-group">
-          <label>Description</label>
-          <input type="text" class="pl-text" data-i="${i}" value="${p.text}"/>
-        </div>
-      </div>`;
+    div.innerHTML = `<div class="form-grid three"><div class="form-group"><label>Icon (emoji)</label><input type="text" class="pl-icon" data-i="${i}" value="${p.icon}" maxlength="4"/></div><div class="form-group"><label>Title</label><input type="text" class="pl-title" data-i="${i}" value="${p.title}"/></div><div class="form-group"><label>Description</label><input type="text" class="pl-text" data-i="${i}" value="${p.text}"/></div></div>`;
     editor.appendChild(div);
   });
 }
 
 function saveAbout() {
   const d = getData('about');
-  ['heading','para1','para2','vision','img1','img2','years'].forEach(k => {
-    d[k] = document.getElementById('a-' + k)?.value || '';
-  });
+  ['heading','para1','para2','vision','years'].forEach(k => { d[k] = document.getElementById('a-' + k)?.value || ''; });
+  d.img1 = document.getElementById('a-img1-url')?.value || '';
+  d.img2 = document.getElementById('a-img2-url')?.value || '';
   d.pillars = [];
   document.querySelectorAll('.pl-icon').forEach((el, i) => {
-    d.pillars.push({
-      icon: el.value,
-      title: document.querySelectorAll('.pl-title')[i].value,
-      text:  document.querySelectorAll('.pl-text')[i].value
-    });
+    d.pillars.push({ icon: el.value, title: document.querySelectorAll('.pl-title')[i].value, text: document.querySelectorAll('.pl-text')[i].value });
   });
   save('about', d);
 }
 
-/* ────────────────────────────────────────────
-   CONTACT PANEL
-──────────────────────────────────────────── */
+/* ─── CONTACT ─── */
 function loadContact() {
   const d = getData('contact');
-  ['heading','subtext','formspree'].forEach(k => {
-    const el = document.getElementById('ct-' + k);
-    if(el) el.value = d[k] || '';
-  });
+  ['heading','subtext','formspree'].forEach(k => { const el = document.getElementById('ct-' + k); if(el) el.value = d[k] || ''; });
 }
 function saveContact() {
   const d = {};
-  ['heading','subtext','formspree'].forEach(k => {
-    d[k] = document.getElementById('ct-' + k)?.value || '';
-  });
+  ['heading','subtext','formspree'].forEach(k => { d[k] = document.getElementById('ct-' + k)?.value || ''; });
   save('contact', d);
 }
 
-/* ────────────────────────────────────────────
-   SETTINGS
-──────────────────────────────────────────── */
+/* ─── SETTINGS ─── */
 document.getElementById('changePassBtn')?.addEventListener('click', () => {
   const np = document.getElementById('s-newPass').value;
   const cp = document.getElementById('s-confirmPass').value;
   const msg = document.getElementById('passMsg');
-  if (!np) { msg.textContent = '⚠️ Enter a new password.'; msg.style.color = 'var(--danger)'; msg.style.display='block'; return; }
-  if (np !== cp) { msg.textContent = '⚠️ Passwords do not match.'; msg.style.color = 'var(--danger)'; msg.style.display='block'; return; }
+  if (!np) { msg.textContent = '⚠️ Enter a new password.'; msg.style.color='var(--danger)'; msg.style.display='block'; return; }
+  if (np !== cp) { msg.textContent = '⚠️ Passwords do not match.'; msg.style.color='var(--danger)'; msg.style.display='block'; return; }
   save('password', np);
-  msg.textContent = '✅ Password updated!'; msg.style.color = 'var(--success)'; msg.style.display='block';
+  msg.textContent = '✅ Password updated!'; msg.style.color='var(--success)'; msg.style.display='block';
   document.getElementById('s-newPass').value = '';
   document.getElementById('s-confirmPass').value = '';
   setTimeout(() => { msg.style.display='none'; }, 3000);
 });
 
 function resetAll() {
-  if (!confirm('Reset ALL website content to defaults? This cannot be undone.')) return;
-  ['branding','company','hero','team','about','contact'].forEach(k => localStorage.removeItem('ew_' + k));
+  if (!confirm('Reset ALL content to defaults? Cannot be undone.')) return;
+  ['branding','company','hero','team','portfolio','about','contact'].forEach(k => localStorage.removeItem('ew_' + k));
   loadAllPanels();
-  showToast('🔄 Content reset to defaults');
+  showToast('🔄 Reset to defaults');
 }
 
-/* ────────────────────────────────────────────
-   SAVE ALL
-──────────────────────────────────────────── */
+/* ─── SAVE ALL ─── */
 document.getElementById('saveAllBtn').addEventListener('click', () => {
-  saveBranding(); saveCompany(); saveHero(); saveTeam(); saveAbout(); saveContact();
+  saveBranding(); saveCompany(); saveHero(); saveTeam(); savePortfolio(); saveAbout(); saveContact();
   showToast('✅ All changes saved!');
 });
 
-/* ────────────────────────────────────────────
-   LOAD ALL
-──────────────────────────────────────────── */
+/* ─── LOAD ALL ─── */
 function loadAllPanels() {
-  loadBranding(); loadCompany(); loadHero(); loadTeam(); loadAbout(); loadContact();
+  loadBranding(); loadCompany(); loadHero(); loadTeam(); loadPortfolio(); loadAbout(); loadContact();
 }
 
-/* ────────────────────────────────────────────
-   TOAST
-──────────────────────────────────────────── */
+/* ─── TOAST ─── */
 function showToast(msg, error) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -1228,36 +1019,24 @@ function showToast(msg, error) {
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-/* ────────────────────────────────────────────
-   EXPORT
-──────────────────────────────────────────── */
+/* ─── EXPORT ─── */
 function exportHTML() {
   showToast('📦 Preparing export…');
   fetch('index.html')
     .then(r => r.text())
     .then(html => {
-      // Inject a script tag that bakes in all current data
-      const data = {
-        branding: getData('branding'),
-        company:  getData('company'),
-        hero:     getData('hero'),
-        team:     getData('team'),
-        about:    getData('about'),
-        contact:  getData('contact')
-      };
-      const inject = `\n<script id="ew-baked-data">
-window.__EW_BAKED__ = ${JSON.stringify(data)};
-<\/script>\n`;
-      const exported = html.replace('</head>', inject + '</head>');
-      const blob = new Blob([exported], { type: 'text/html' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'index.html';
-      a.click();
+      const data = { branding: getData('branding'), company: getData('company'), hero: getData('hero'), team: getData('team'), portfolio: getData('portfolio'), about: getData('about'), contact: getData('contact') };
+      const inject = `\n<script id="ew-baked-data">window.__EW_BAKED__ = ${JSON.stringify(data)};<\/script>\n`;
+      const blob = new Blob([html.replace('</head>', inject + '</head>')], { type: 'text/html' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click();
       showToast('✅ index.html downloaded!');
     })
-    .catch(() => showToast('❌ Could not fetch index.html — open admin from a local server or GitHub Pages.', true));
+    .catch(() => showToast('❌ Open admin from a server or GitHub Pages to export.', true));
 }
 </script>
 </body>
 </html>
+
+
+Done - 1038 lines
+Done
